@@ -7,7 +7,12 @@ var jsonfile = require('jsonfile');
 var _ = require('lodash');
 var addsrc = require('gulp-add-src');
 
+var phantomjs = require('phantomjs-prebuilt')
+var casperJs = require('gulp-casperjs');
+
 jsonfile.spaces = 2;
+process.env["PHANTOMJS_EXECUTABLE"] = phantomjs.path;
+console.log(process.env["PHANTOMJS_EXECUTABLE"])
 
 gulp.task("patch", function(cb) {
   jsonfile.readFile("../src/allowedValues.json", function(err, obj) {
@@ -36,6 +41,7 @@ gulp.task("patch", function(cb) {
       obj.parameters.vmSizeDataNodes.allowedValues = vmSizes;
       obj.parameters.vmSizeMasterNodes.allowedValues = vmSizes;
       obj.parameters.vmSizeClientNodes.allowedValues = vmSizes;
+      obj.parameters.vmSizeKibana.allowedValues = vmSizes;
       jsonfile.writeFile(mainTemplate, obj, function (err) {
         jsonfile.readFile(uiTemplate, function(err, obj) {
 
@@ -53,14 +59,17 @@ gulp.task("patch", function(cb) {
 
           //patch allowedVMSizes on the nodesStep
           var nodesStep = _.find(obj.parameters.steps, function (step) { return step.name == "nodesStep"; });
+          var externalAccessStep = _.find(obj.parameters.steps, function (step) { return step.name == "externalAccessStep"; });
 
           var masterSizeControl = _.find(nodesStep.elements, function (el) { return el.name == "vmSizeMasterNodes"; });
           var dataSizeControl = _.find(nodesStep.elements, function (el) { return el.name == "vmSizeDataNodes"; });
           var clientSizeControl = _.find(nodesStep.elements, function (el) { return el.name == "vmSizeClientNodes"; });
-          var patchVmSizes = function(control) { control.constraints.allowedSizes = vmSizes; }
+          var kibanaSizeControl = _.find(externalAccessStep.elements, function (el) { return el.name == "vmSizeKibana"; });
+          var patchVmSizes = function(control) { control.constraints.allowedValues = vmSizes; }
           patchVmSizes(masterSizeControl);
           patchVmSizes(dataSizeControl);
           patchVmSizes(clientSizeControl);
+          patchVmSizes(kibanaSizeControl);
 
           jsonfile.writeFile(uiTemplate, obj, function (err) {
             cb();
@@ -70,6 +79,28 @@ gulp.task("patch", function(cb) {
     });
   });
 });
+
+var spawn = require('child_process').spawn;
+var gutil = require('gulp-util');
+
+gulp.task("headless", function () {
+    var tests = ['../build/ui-tests/runner.js'];
+    var casperChild = spawn('../node_modules/casperjs/bin/casperjs.exe', tests);
+
+    casperChild.stderr.on('data', function (data) {
+      gutil.log('CasperJS:', data.toString().slice(0, -1));
+    });
+    casperChild.stdout.on('data', function (data) {
+      gutil.log('CasperJS:', data.toString().slice(0, -1));
+    });
+
+    casperChild.on('close', function (code) {
+      var success = code === 0; // Will be 1 in the event of failure
+
+      // Do something with success here
+    });
+});
+
 
 
 gulp.task("default", ["patch"], function() {
