@@ -6,7 +6,7 @@
       {
         "name": "adminUsername",
         "type": "Microsoft.Compute.UserNameTextBox",
-        "label": "User name",
+        "label": "User x",
         "defaultValue": "",
         "toolTip": "Specify a user for accessing the virtual machines within your cluster.",
         "constraints": {
