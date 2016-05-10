@@ -85,7 +85,7 @@ var gutil = require('gulp-util');
 
 gulp.task("headless", function () {
     var tests = ['../build/ui-tests/runner.js'];
-    var casperChild = spawn('../node_modules/casperjs/bin/casperjs.exe', tests);
+    var casperChild = spawn('../node_modules/casperjs/bin/casperjs.exe', ["test"].concat(tests));
 
     casperChild.stderr.on('data', function (data) {
       gutil.log('CasperJS:', data.toString().slice(0, -1));
