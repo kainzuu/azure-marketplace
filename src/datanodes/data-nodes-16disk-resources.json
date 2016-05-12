@@ -39,6 +39,12 @@
         "description": "The name of the subnet to deploy resources into"
       }
     },
+    "networkResourceGroup": {
+      "type": "string",
+      "metadata": {
+        "description": "The resource group in which the network resides"
+      }
+    },
     "vmSize": {
       "type": "string",
       "defaultValue": "Standard_A1",
@@ -81,7 +87,7 @@
   },
   "variables": {
     "vmStorageAccountContainerName": "vhd",
-    "subnetRef": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('subnet').vnet), '/subnets/', parameters('subnet').name)]",
+    "subnetRef": "[concat(resourceId(parameters('networkResourceGroup'),'Microsoft.Network/virtualNetworks', parameters('subnet').vnet), '/subnets/', parameters('subnet').name)]",
     "storageAccountName": "[concat(parameters('storageSettings').prefix)]",
     "vmName": "[concat(parameters('namespace'), 'vm')]"
   },

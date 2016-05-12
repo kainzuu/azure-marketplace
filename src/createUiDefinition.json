@@ -56,7 +56,7 @@
             },
             "toolTip": {
               "virtualNetwork": "Create a new Virtual Network or use an existing one",
-              "subnets": "Choose the Subnets for the Virtual Network. If choosing an existing Virtual Network, the subnet needs to exist beforehand; Creating new subnets in an existing virtual network is not supported by the template"
+              "subnets": "Choose the Subnets for the Virtual Network. If choosing an existing Virtual Network, the Subnets need to exist beforehand; Creating new subnets in an existing virtual network is not supported by the template"
             },
             "defaultValue": {
               "name": "es-vnet",
@@ -72,7 +72,7 @@
               "subnet1": {
                 "label": "First subnet",
                 "defaultValue": {
-                  "name": "es-subnet-1",
+                  "name": "master",
                   "addressPrefixSize": "/24"
                 },
                 "constraints": {
@@ -84,7 +84,7 @@
               "subnet2": {
                 "label": "Second subnet",
                 "defaultValue": {
-                  "name": "es-subnet-2",
+                  "name": "data",
                   "addressPrefixSize": "/26"
                 },
                 "constraints": {
@@ -600,16 +600,16 @@
       }
     ],
     "outputs": {
-      "vNetName": "[steps('virtualNetworkSettingsStep').virtualNetwork.name]",
-      "vNetResourceGroup": "[steps('virtualNetworkSettingsStep').virtualNetwork.resourceGroup]",
-      "vNetAddressPrefix": "[steps('virtualNetworkSettingsStep').virtualNetwork.addressPrefix]",
-      "vNetNewOrExisting": "[steps('virtualNetworkSettingsStep').virtualNetwork.newOrExisting]",
-      "vNetSubnet1Name": "[steps('virtualNetworkSettingsStep').virtualNetwork.subnets.subnet1.name]",
-      "vNetSubnet1AddressPrefix": "[steps('virtualNetworkSettingsStep').virtualNetwork.subnets.subnet1.addressPrefix]",
-      "vNetSubnet1StartAddress": "[steps('virtualNetworkSettingsStep').virtualNetwork.subnets.subnet1.startAddress]",
-      "vNetSubnet2Name": "[steps('virtualNetworkSettingsStep').virtualNetwork.subnets.subnet2.name]",
-      "vNetSubnet2AddressPrefix": "[steps('virtualNetworkSettingsStep').virtualNetwork.subnets.subnet2.addressPrefix]",
-      "vNetSubnet2StartAddress": "[steps('virtualNetworkSettingsStep').virtualNetwork.subnets.subnet2.startAddress]",
+      "virtualNetworkName": "[steps('virtualNetworkSettingsStep').virtualNetwork.name]",
+      "virtualNetworkResourceGroup": "[steps('virtualNetworkSettingsStep').virtualNetwork.resourceGroup]",
+      "virtualNetworkAddressPrefix": "[steps('virtualNetworkSettingsStep').virtualNetwork.addressPrefix]",
+      "virtualNetworkNewOrExisting": "[steps('virtualNetworkSettingsStep').virtualNetwork.newOrExisting]",
+      "virtualNetworkSubnet1Name": "[steps('virtualNetworkSettingsStep').virtualNetwork.subnets.subnet1.name]",
+      "virtualNetworkSubnet1AddressPrefix": "[steps('virtualNetworkSettingsStep').virtualNetwork.subnets.subnet1.addressPrefix]",
+      "virtualNetworkSubnet1StartAddress": "[steps('virtualNetworkSettingsStep').virtualNetwork.subnets.subnet1.startAddress]",
+      "virtualNetworkSubnet2Name": "[steps('virtualNetworkSettingsStep').virtualNetwork.subnets.subnet2.name]",
+      "virtualNetworkSubnet2AddressPrefix": "[steps('virtualNetworkSettingsStep').virtualNetwork.subnets.subnet2.addressPrefix]",
+      "virtualNetworkSubnet2StartAddress": "[steps('virtualNetworkSettingsStep').virtualNetwork.subnets.subnet2.startAddress]",
       "esVersion": "[steps('clusterSettingsStep').esVersion]",
       "esClusterName": "[steps('clusterSettingsStep').esClusterName]",
       "loadBalancerType": "[steps('externalAccessStep').loadBalancerType]",

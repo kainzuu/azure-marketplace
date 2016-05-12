@@ -33,6 +33,12 @@
       "type": "object",
       "defaultValue": {}
     },
+    "networkResourceGroup": {
+      "type": "string",
+      "metadata": {
+        "description": "The resource group in which the network resides"
+      }
+    },
     "vmSize": {
       "type": "string",
       "defaultValue": ""

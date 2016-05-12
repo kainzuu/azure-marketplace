@@ -37,6 +37,12 @@
       "type": "string",
       "defaultValue": ""
     },
+    "networkResourceGroup": {
+      "type": "string",
+      "metadata": {
+        "description": "The resource group in which the network resides"
+      }
+    },
     "osSettings": {
       "type": "object",
       "defaultValue": {}

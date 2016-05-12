@@ -1,0 +1,28 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "type": "string",
+      "metadata": {
+        "description": "Location where resources will be provisioned. Not used for existing virtual network"
+      }
+    },
+    "networkSettings": {
+      "type": "object",
+      "metadata": {
+        "description": "Network settings object"
+      }
+    }
+  },
+  "resources": [],
+  "outputs": {
+     "virtualNetworkResourceGroup":{
+       "type": "string",
+       "value": "[parameters('networkSettings').resourceGroup]",
+       "metadata": {
+           "description": "The virtual network resource group."
+       }
+     }
+  }
+}

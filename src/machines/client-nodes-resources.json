@@ -52,6 +52,12 @@
         "description": "Elasticsearch deployment platform settings"
       }
     },
+    "networkResourceGroup": {
+      "type": "string",
+      "metadata": {
+        "description": "The resource group in which the network resides"
+      }
+    },
     "vmCount": {
       "type": "int",
       "metadata": {
@@ -67,7 +73,7 @@
   },
   "variables": {
     "vmStorageAccountContainerName": "vhd",
-    "subnetRef": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('subnet').vnet), '/subnets/', parameters('subnet').name)]",
+    "subnetRef": "[concat(resourceId(parameters('networkResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('subnet').vnet), '/subnets/', parameters('subnet').name)]",
     "storageAccountName": "[parameters('storageAccountName')]",
     "vmName": "clientVm",
     "nicName": "clientNic"

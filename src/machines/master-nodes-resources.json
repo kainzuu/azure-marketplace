@@ -53,6 +53,12 @@
         "description": "Size of the Elasticsearch master nodes"
       }
     },
+    "networkResourceGroup": {
+      "type": "string",
+      "metadata": {
+        "description": "The resource group in which the network resides"
+      }
+    },
     "osSettings": {
       "type": "object",
       "metadata": {
@@ -62,7 +68,7 @@
   },
   "variables": {
     "vmStorageAccountContainerName": "vhd",
-    "subnetRef": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('subnet').vnet), '/subnets/', parameters('subnet').name)]",
+    "subnetRef": "[concat(resourceId(parameters('networkResourceGroup'), 'Microsoft.Network/virtualNetworks', parameters('subnet').vnet), '/subnets/', parameters('subnet').name)]",
     "storageAccountName": "[parameters('storageAccountName')]",
     "vmName": "masterVm"
   },
